@@ -1,0 +1,116 @@
+classDiagram
+direction TB
+    class Cellule {
+	    - int x 
+	    - int y
+        - Etat* etat
+        + Cellule (int x, int y, bool )
+	    + getEtat() Etat*
+        + setEtat(Etat* nouveauEtat) 
+	    + estVivant() bool
+    }
+
+    class Etat {
+	    + estVivant() virtual bool
+    }
+	<<abstract>> Etat
+
+    class Regle {
+	    + Regle()
+	    + Transition(Grille* grille, Cellule* cellule) virtual Etat*
+        + setRegle() void
+    }
+    <<abstract>> Regle
+
+    class RegleConway {
+        +Transition (Grille* grille, Cellule* cellule) Etat* override  
+    }
+
+    class Grille {
+	    - int largeur
+	    - int longueur
+	    - cells Cellule[][]
+	    + Grille(int longueur, int largeur)
+        + ~Grille()
+        + GetCellule(int i, int j) Cellule&
+        + Voisin (int i, int j) int 
+        + InitialiserDepuisFichier(Fichier& fichier) void
+        + Iteration(Regle& regle) void
+        + DepuisMatrice (bool** matrice) void
+        + VersMatrice () bool**
+        + Copier (Grille* nouvelle) void
+    }
+
+    class Vivant {
+	    + estVivant() bool override
+    }
+
+    class Mort {
+	    + estVivant() bool override
+    }
+
+    class GUI {
+	    + AfficherGrille(Grille& grille) void override        
+    }
+
+    class Jeu {
+        - int nbIterations 
+	    + Jeu()
+        + ~Jeu()
+        + setGrille(Grille* g) void
+        + setRegle(Regle* r) void
+        + setAffichage(Affichage* a) void
+        + chargerDepuisFichier(string chemin) void
+        + Demarrer() void
+        + pasDeSimulation() void
+        + Arreter() void
+        + Reset() void
+        - EchangerGrille() void
+
+    }
+    class Affichage {
+        + AfficherGrille (Grille& grille) virtual void 
+
+    }
+    <<abstract>> Affichage 
+
+    class AffichageConsole {
+	    + AfficherGrille(Grille& grille) void override
+    }
+
+    class Fichier {
+        
+
+        - int largeur
+        - int longueur
+        - bool** matriceInitiale  
+        + Fichier()
+        + ~Fichier()  // Destructeur pour libérer la mémoire de la matrice
+        + ChargerFichier(string chemin) void
+        + SauvegarderGrille(string chemin, Grille& grille) void
+        + GetLargeur() int
+        + GetLongueur() int
+        + GetMatriceInitiale() bool**
+        + GetNomRegle() string
+
+
+    }
+
+    class TestUnitaire {
+        + verifierTransition(Grille& initial, Regle& regle, int iterations, bool** attendu) bool
+    }
+
+
+    Affichage <|-- AffichageConsole
+    Affichage <|-- GUI
+    Cellule *-- Etat
+    Grille *-- Cellule
+
+    Etat <|-- Vivant
+    Etat <|-- Mort
+    Regle <|-- RegleConway
+
+    Jeu o-- Grille
+    Jeu o-- Affichage
+    Jeu o-- Regle
+    Jeu o-- Fichier
