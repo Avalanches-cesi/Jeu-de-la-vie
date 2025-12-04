@@ -16,6 +16,7 @@ direction TB
 	<<abstract>> Etat
 
     class Regle {
+        + ~Regle() virtual
 	    + Transition() virtual Etat
     }
     <<abstract>> Regle
@@ -49,7 +50,11 @@ direction TB
     }
 
     class GUI {
-	    + AfficherGrille(Grille& grille) void override        
+        - Taille
+	    + AfficherGrille(Grille& grille) void override
+        + DemarrerGUI() void
+        + ArreterGUI() void
+
     }
 
     class Jeu {
@@ -69,6 +74,7 @@ direction TB
 
     }
     class Affichage {
+        + ~Affichage() virtual
         + AfficherGrille (Grille& grille) virtual void 
 
     }
