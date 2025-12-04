@@ -1,4 +1,5 @@
 #include "Fichier.h"
+#include "Grille.h"
 #include <fstream>
 #include <stdexcept>
 #include <filesystem>
