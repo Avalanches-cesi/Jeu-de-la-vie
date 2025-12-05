@@ -8,30 +8,28 @@
 
     int Jeu::nbIteration = 0;
 
-    int Jeu::nbIterationCPT = 0;
-
     bool Jeu::enExecution = false;
 
-    Jeu::Jeu(void) : nbIteration(0), grille(nullptr), regle(nullptr),
-    affichage(nullptr), enExecution(false), grilleInitiale(nullptr) {}
+    Jeu::Jeu(void) : nbIteration(0), enExecution(false), grilleInitiale(nullptr) {}
 
     Jeu::~Jeu() {
-        if (grille != nullptr) {delete grille;}
-        if (regle != nullptr) {delete regle;}
-        if (affichage != nullptr) {delete affichage;}
+        if (Grille != nullptr) {delete Grille;}
+        if (Regle != nullptr) {delete Regle;}
+        if (Affichage != nullptr) {delete Affichage;}
         if (grilleInitiale != nullptr) {delete grilleInitiale;}
+        if (nbIteration != 0) {delete nbIteration;}
     }
 
     void Jeu::setGrille(Grille* g) {
-        grille = g;
+        Grille = g;
     }
 
     void Jeu::setRegle(Regle* r) {
-        regle = r;
+        Regle = r;
     }
 
     void Jeu::setAffichage(Affichage* a) {
-        affichage = a;
+        Affichage = a;
     }
 
     void Jeu::chargerDepuisFichier(std::string chemin) {
@@ -54,8 +52,6 @@
             std::cerr << "Erreur lors du démarrage : grille, règle ou affichage manquant" << std::endl;
             return;
         }
-
-        affichage->AfficherGrille(*grille);
 
         enExecution = true;
 
