@@ -1,5 +1,6 @@
 #include "Affichage.h"
 #include "ModeConsole.h"
+#include "Grille.h"
 #include "Fichier.h"
 #include <iostream>
 
@@ -70,5 +71,6 @@ void ModeConsole::AfficherErreur(const std::string& message) {
     std::cerr << "ERREUR: " << message << std::endl;
 }
 //======================================================================================================================
+
 
 
