@@ -13,7 +13,7 @@ public:
     int Voisins(int i, int j);
     void InitialiserDepuisFichier (Fichier& fichier);
     void Iteration (Regle& regle);
-    void Copier (Grille* nouvelle);
+    void PasDeSimulation();
 
 
 };
